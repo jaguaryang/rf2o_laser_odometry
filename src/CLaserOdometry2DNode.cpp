@@ -213,14 +213,15 @@ void CLaserOdometry2DNode::publish()
   nav_msgs::msg::Odometry odom;
   odom.header.stamp = rf2o_ref.last_odom_time;    // the time of the last scan used!
   odom.header.frame_id = odom_frame_id;
-  //set the position 这里x y要取负值，原因待查 By Jack
+  //set position 这里x y要取负值，原因待查 By Jack
   odom.pose.pose.position.x = -rf2o_ref.robot_pose_.translation()(0);
   odom.pose.pose.position.y = -rf2o_ref.robot_pose_.translation()(1);
   odom.pose.pose.position.z = 0.0;
   odom.pose.pose.orientation = quaternion;
   //set the velocity
   odom.child_frame_id = base_frame_id;
-  odom.twist.twist.linear.x = rf2o_ref.lin_speed;    //linear speed
+  //set linear.x 这里要取负值，原因待查 By Jack
+  odom.twist.twist.linear.x = -rf2o_ref.lin_speed;    //linear speed
   odom.twist.twist.linear.y = 0.0;
   odom.twist.twist.angular.z = rf2o_ref.ang_speed;   //angular speed
   //publish the message

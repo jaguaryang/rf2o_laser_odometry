@@ -213,9 +213,9 @@ void CLaserOdometry2DNode::publish()
   nav_msgs::msg::Odometry odom;
   odom.header.stamp = rf2o_ref.last_odom_time;    // the time of the last scan used!
   odom.header.frame_id = odom_frame_id;
-  //set the position
-  odom.pose.pose.position.x = rf2o_ref.robot_pose_.translation()(0);
-  odom.pose.pose.position.y = rf2o_ref.robot_pose_.translation()(1);
+  //set the position 这里x y要取负值，原因待查 By Jack
+  odom.pose.pose.position.x = -rf2o_ref.robot_pose_.translation()(0);
+  odom.pose.pose.position.y = -rf2o_ref.robot_pose_.translation()(1);
   odom.pose.pose.position.z = 0.0;
   odom.pose.pose.orientation = quaternion;
   //set the velocity
